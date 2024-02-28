@@ -4,6 +4,10 @@
 # and param2 include estimated parameters of AR(1) and AR(2) respectively
 # Residuals for non-causal AR(1)#
 
+library(ZIM)
+library(portes)
+library(WeightedPortTest)
+
 z.hat <- function(x){
   n <- length(x)
   z <- x[1:(n - 1)] - x[n] * bshift(x[1:(n - 1)], k = 1)
@@ -145,6 +149,7 @@ T_smm <- t(apply(Z, 1, Q_smm))
 rej_smm <- apply(T_smm, 2, sum)   #number of rejected tests
 #############################################################
 
+## Fisher-Gallagher test (Q_sfg)##
 Q_sfg <- function(x){
   x[x <= sort(x)[length(x) * 0.01]] <- 0
   x[x >= sort(x)[length(x) * 0.99]] <- 0
